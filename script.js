@@ -110,11 +110,11 @@ window.addEventListener('mouseout', () => {
 // TYPING EFFECT
 // ===================================
 const titles = [
+    'Systems & Infra Engineer.',
     'Data Science Enthusiast.',
     'AI/ML Developer.',
-    'MERN Stack Developer.',
     'Problem Solver.',
-    'Aspiring Data Analyst.'
+    'Automation & Test Engineer.'
 ];
 
 let titleIndex = 0;
