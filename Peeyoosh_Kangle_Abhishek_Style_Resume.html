@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peeyoosh Kangle — Resume</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        @page {
+            size: A4;
+            margin: 6mm 10mm 6mm 10mm;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Plus Jakarta Sans', Arial, Helvetica, sans-serif;
+            color: #1f2937;
+            background: #f8fafc;
+            line-height: 1.4;
+            padding: 20px 0;
+            -webkit-font-smoothing: antialiased;
+        }
+        .sheet {
+            max-width: 820px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 30px 38px;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.07);
+            border-radius: 4px;
+        }
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .sheet {
+                box-shadow: none;
+                padding: 0;
+                max-width: 100%;
+            }
+            .no-print {
+                display: none !important;
+            }
+        }
+        .print-toolbar {
+            text-align: center;
+            margin-bottom: 14px;
+        }
+        .print-btn {
+            background: #226b54;
+            color: #ffffff;
+            border: none;
+            padding: 9px 24px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(34, 107, 84, 0.3);
+            transition: all 0.2s ease;
+        }
+        .print-btn:hover {
+            background: #1b5341;
+            transform: translateY(-1px);
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+        .name {
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: 2px;
+            color: #226b54;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+        .contact-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            font-size: 10px;
+            color: #374151;
+            padding-bottom: 6px;
+            border-bottom: 1.5px solid #226b54;
+        }
+        .contact-row a {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            color: #166534;
+            text-decoration: underline;
+            text-underline-offset: 2.5px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(34, 107, 84, 0.08);
+            border: 1px solid rgba(34, 107, 84, 0.2);
+            transition: all 0.2s ease;
+        }
+        .contact-row a:hover {
+            background: rgba(34, 107, 84, 0.16);
+            color: #0f3d20;
+        }
+        .contact-phone {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 500;
+            padding: 3px 6px;
+            color: #374151;
+        }
+
+        /* SECTION HEADINGS */
+        .section-header {
+            margin-top: 8px;
+            margin-bottom: 4px;
+            border-bottom: 1px solid #cbd5e1;
+            padding-bottom: 2px;
+        }
+        .section-title {
+            font-size: 11.5px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #226b54;
+        }
+
+        /* PARAGRAPH / SUMMARY */
+        .summary-block {
+            font-size: 10px;
+            line-height: 1.45;
+            color: #374151;
+            text-align: justify;
+            margin-bottom: 4px;
+        }
+
+        /* TECHNICAL COMPETENCIES */
+        .comp-list {
+            margin-top: 2px;
+            margin-bottom: 4px;
+        }
+        .comp-row {
+            display: flex;
+            align-items: baseline;
+            font-size: 9.8px;
+            line-height: 1.4;
+            margin-bottom: 2px;
+        }
+        .comp-title {
+            width: 155px;
+            min-width: 155px;
+            font-weight: 700;
+            color: #111827;
+        }
+        .comp-desc {
+            color: #374151;
+            flex: 1;
+        }
+
+        /* WORK EXPERIENCE & PROJECTS */
+        .project-card {
+            margin-top: 4px;
+            margin-bottom: 6px;
+        }
+        .project-headline {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1px;
+        }
+        .project-name {
+            font-size: 10.8px;
+            font-weight: 700;
+            color: #111827;
+        }
+        .project-date {
+            font-size: 9.8px;
+            font-weight: 600;
+            color: #226b54;
+        }
+        .project-tech {
+            font-size: 9.6px;
+            font-style: italic;
+            color: #226b54;
+            margin-bottom: 2px;
+            font-weight: 500;
+        }
+        ul.bullet-items {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 1px;
+        }
+        ul.bullet-items li {
+            position: relative;
+            padding-left: 14px;
+            font-size: 9.8px;
+            color: #374151;
+            line-height: 1.38;
+            margin-bottom: 1.8px;
+        }
+        ul.bullet-items li::before {
+            content: "–";
+            position: absolute;
+            left: 2px;
+            color: #226b54;
+            font-weight: 700;
+        }
+        ul.bullet-items li strong {
+            color: #111827;
+        }
+
+        /* EDUCATION */
+        .edu-block {
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        .edu-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 10.5px;
+            margin-bottom: 1px;
+        }
+        .edu-degree {
+            font-weight: 700;
+            color: #111827;
+        }
+        .edu-subhead {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            font-size: 9.8px;
+            color: #4b5563;
+            margin-bottom: 2px;
+        }
+        .semesters-badge-row {
+            font-size: 9.8px;
+            color: #1f2937;
+            background: #f1f5f9;
+            padding: 3px 8px;
+            border-radius: 4px;
+            margin-top: 2px;
+            margin-bottom: 3px;
+            border-left: 3px solid #226b54;
+        }
+        .edu-school-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 2px;
+        }
+        .edu-school-list li {
+            position: relative;
+            padding-left: 14px;
+            font-size: 9.8px;
+            color: #374151;
+            line-height: 1.38;
+            margin-bottom: 1.5px;
+        }
+        .edu-school-list li::before {
+            content: "–";
+            position: absolute;
+            left: 2px;
+            color: #226b54;
+            font-weight: 700;
+        }
+
+        /* CERTIFICATIONS */
+        .cert-list {
+            list-style: none;
+            padding-left: 0;
+            margin-top: 2px;
+        }
+        .cert-list li {
+            position: relative;
+            padding-left: 14px;
+            font-size: 9.8px;
+            color: #374151;
+            line-height: 1.38;
+            margin-bottom: 2px;
+        }
+        .cert-list li::before {
+            content: "–";
+            position: absolute;
+            left: 2px;
+            color: #226b54;
+            font-weight: 700;
+        }
+        .cert-list li strong {
+            color: #111827;
+        }
+    </style>
+</head>
+<body>
+    <div class="no-print print-toolbar">
+        <button class="print-btn" onclick="window.print()">🖨️ Print / Save as 1-Page PDF</button>
+    </div>
+
+    <div class="sheet">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="name">PEEYOOSH KANGLE</div>
+            <div class="contact-row">
+                <span class="contact-phone">📞 +91 9976301008</span>
+                <a href="mailto:piyushkangle@gmail.com" title="Email Peeyoosh">✉️ piyushkangle@gmail.com</a>
+                <a href="https://www.linkedin.com/in/peeyoosh-kangle-652694383" target="_blank" title="View LinkedIn Profile">🔗 LinkedIn</a>
+                <a href="https://github.com/piyush1008-cyber" target="_blank" title="View GitHub Profile">💻 GitHub</a>
+            </div>
+        </div>
+
+        <!-- SUMMARY -->
+        <div class="section-header">
+            <div class="section-title">SUMMARY</div>
+        </div>
+        <div class="summary-block">
+            Motivated Computer Science Engineer with a strong academic foundation (<strong>Cumulative CGPA: 8.44, Sem VI: 9.22</strong>) and practical expertise in building scalable Relational Database Architectures, ETL Data Ingestion Pipelines, and Backend Services using <strong>SQL, Python, and Node.js</strong>. Skilled in 3NF schema design, complex query optimization, indexing strategies, and transactional integrity (ACID). Proven experience with RESTful API engineering, automated data validation, and analytical troubleshooting. Seeking a <strong>Software Engineer Trainee / Database Support</strong> role at <strong>Yardi Systems</strong> to deliver robust enterprise solutions.
+        </div>
+
+        <!-- TECHNICAL COMPETENCIES -->
+        <div class="section-header">
+            <div class="section-title">TECHNICAL COMPETENCIES</div>
+        </div>
+        <div class="comp-list">
+            <div class="comp-row">
+                <div class="comp-title">Languages:</div>
+                <div class="comp-desc">Python, SQL, JavaScript (ES6+), C++</div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-title">Databases & RDBMS:</div>
+                <div class="comp-desc">MS SQL Server, PostgreSQL, MySQL, SQLite, Oracle (Fundamentals)</div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-title">Core DB Concepts:</div>
+                <div class="comp-desc">Relational Schema Design, Normalization (1NF–3NF), ACID Properties, Complex Joins, Indexing, Query Optimization</div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-title">Backend Frameworks:</div>
+                <div class="comp-desc">Node.js, Express.js, FastAPI, RESTful APIs, CRUD Workflows, Postman, WebSockets</div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-title">Data & Analytics:</div>
+                <div class="comp-desc">Pandas, NumPy, Scikit-learn, Data Pipelines, Exploratory Data Analysis (EDA), Automated Reporting</div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-title">DevOps & Tools:</div>
+                <div class="comp-desc">Git, GitHub, Docker (Basics), Linux/Bash Scripting, VS Code, CI/CD Fundamentals, SDLC</div>
+            </div>
+            <div class="comp-row">
+                <div class="comp-title">AI & Retrieval:</div>
+                <div class="comp-desc">Retrieval-Augmented Generation (Local RAG), Vector Search, Sentence-Transformers, Ollama API</div>
+            </div>
+        </div>
+
+        <!-- WORK EXPERIENCE & PROJECTS -->
+        <div class="section-header">
+            <div class="section-title">WORK EXPERIENCE & PROJECTS</div>
+        </div>
+
+        <!-- Project 1 -->
+        <div class="project-card">
+            <div class="project-headline">
+                <div class="project-name">Project Name: Intelligent Student Management & Academics Portal</div>
+                <div class="project-date">Jan 2026 — Present</div>
+            </div>
+            <div class="project-tech">Tech Stack: Node.js, PostgreSQL, Express.js, SQL, REST APIs, Postman</div>
+            <ul class="bullet-items">
+                <li>Architected an enterprise <strong>3NF-normalized relational schema</strong> across 12+ tables with foreign keys and strict <strong>ACID transactional integrity</strong>.</li>
+                <li>Engineered optimized SQL queries, subqueries, and multi-table joins, <strong>reducing query latency by 45%</strong> through B-tree index tuning.</li>
+                <li>Built and validated <strong>20+ secure RESTful API endpoints</strong> using Postman, ensuring robust input sanitization and structured error logging.</li>
+                <li>Automated attendance and CGPA calculation workflows, eliminating <strong>90% of manual administrative data entry</strong>.</li>
+            </ul>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card">
+            <div class="project-headline">
+                <div class="project-name">Project Name: Jarvis AI — Multimodal Voice Assistant & Knowledge Retrieval</div>
+                <div class="project-date">Sep 2025 — Dec 2025</div>
+            </div>
+            <div class="project-tech">Tech Stack: Python, Local RAG, Sentence-Transformers, Vector Search, Ollama API, Multi-Threading</div>
+            <ul class="bullet-items">
+                <li>Engineered an on-premise <strong>Retrieval-Augmented Generation (RAG)</strong> pipeline querying vector embeddings, delivering <strong>sub-second semantic search</strong> across unstructured documentation.</li>
+                <li>Implemented multi-threaded concurrency for audio ingestion and vision (DeepFace), <strong>improving interface responsiveness by 55%</strong> without UI thread deadlock.</li>
+                <li>Integrated local RESTful Ollama endpoints with persistent session caching to retain conversational context across multi-turn dialogues.</li>
+            </ul>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card">
+            <div class="project-headline">
+                <div class="project-name">Project Name: SmartCrop — Precision Farming & Predictive Analytics Pipeline</div>
+                <div class="project-date">Jun 2025 — Aug 2025</div>
+            </div>
+            <div class="project-tech">Tech Stack: Python, Scikit-learn, Pandas, NumPy, Streamlit, Data Validation</div>
+            <ul class="bullet-items">
+                <li>Constructed end-to-end data processing pipelines ingesting <strong>2,200+ agricultural records</strong>, automating null imputation, outlier rejection, and feature scaling.</li>
+                <li>Conducted exploratory data analysis (EDA) and trained comparative ML models (Random Forest vs. SVM), achieving an <strong>industry-grade 99.31% model accuracy</strong>.</li>
+                <li>Built an interactive analytics dashboard featuring real-time parameter simulation and comparative accuracy reports.</li>
+            </ul>
+        </div>
+
+        <!-- Project 4: CyberShield -->
+        <div class="project-card">
+            <div class="project-headline">
+                <div class="project-name">Project Name: CyberShield — AI Cyber Crime & Investigation Portal</div>
+                <div class="project-date">Jan 2026 — Jun 2026</div>
+            </div>
+            <div class="project-tech">Tech Stack: React 19, Node.js, Express.js, MongoDB, JWT, RBAC, Helmet, SHA-256 Hashing</div>
+            <ul class="bullet-items">
+                <li>Engineered a centralized cybercrime investigation management system featuring <strong>Role-Based Access Control (Citizen, Investigator, Admin)</strong> and automated tracking IDs (<code>CS-2026-XXXXXX</code>).</li>
+                <li>Implemented cryptographic digital evidence hashing complying with <strong>Indian Evidence Act (Section 65B)</strong> guidelines, automated PDF incident reports, and real-time case tracking.</li>
+                <li>Secured REST API endpoints using <strong>JWT authentication</strong>, <strong>bcrypt password hashing (12 salt rounds)</strong>, Helmet HTTP security headers, and rate limiting against brute-force attacks.</li>
+                <li><strong>Selected for the open-source XERJ Corpus Hub (Austin, TX)</strong> as a verified reference architecture for AI coding agents and developer search tools.</li>
+            </ul>
+        </div>
+
+        <!-- EDUCATION (All Semesters 1 to 6 Included) -->
+        <div class="section-header">
+            <div class="section-title">EDUCATION</div>
+        </div>
+        <div class="edu-block">
+            <div class="edu-heading">
+                <span class="edu-degree">Bachelor of Technology (B.Tech) — Computer Science & Engineering</span>
+                <span class="project-date">2023 — 2027</span>
+            </div>
+            <div class="edu-subhead">
+                <span>Jawaharlal Nehru Engineering College (JNEC), MGM University, Chhatrapati Sambhajinagar</span>
+                <span><strong>Cumulative CGPA: 8.44</strong></span>
+            </div>
+            <div class="semesters-badge-row">
+                <strong>Semester Grades (SGPA):</strong> Sem 1: <strong>7.99</strong> | Sem 2: <strong>8.36</strong> | Sem 3: <strong>7.97</strong> | Sem 4: <strong>8.54</strong> | Sem 5: <strong>8.58</strong> | Sem 6: <strong>9.22</strong>
+            </div>
+            <ul class="edu-school-list">
+                <li>Higher Secondary Certificate (Class XII): Rajarshi Shahu Mahavidyalaya, Latur | Science | Percentage: <strong>71.00%</strong></li>
+                <li>Secondary School Certificate (Class X): Kholeshwar High School, Ambajogai | Percentage: <strong>99.60%</strong></li>
+            </ul>
+        </div>
+
+        <!-- CERTIFICATIONS & ACHIEVEMENTS -->
+        <div class="section-header">
+            <div class="section-title">CERTIFICATIONS & ACHIEVEMENTS</div>
+        </div>
+        <ul class="cert-list">
+            <li><strong>SQL (Intermediate) Certified</strong> — HackerRank (Verified in Complex Joins, Subqueries, Aggregations, and Indexing).</li>
+            <li><strong>The Ultimate Job Ready Data Science Course</strong> — CodeWithHarry (Comprehensive Python, Pandas, EDA, and Machine Learning).</li>
+            <li><strong>National Cadet Corps (NCC):</strong> Certified NCC Cadet; holder of prestigious <strong>NCC 'A', 'B', and 'C' Certificates</strong>; attended Indian Army Training Camp; Blood Donation volunteer.</li>
+            <li><strong>Smart India Hackathon (SIH):</strong> Active participant in SIH internal college selections and competitive hackathons.</li>
+        </ul>
+    </div>
+</body>
+</html>
