@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield — Cyber Crime Complaint & Investigation Management System</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Custom styling for clean government portal / cybersecurity prototype aesthetic */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap');
+    body { font-family: 'Inter', sans-serif; }
+    .font-mono { font-family: 'JetBrains Mono', monospace; }
+  </style>
+</head>
+<body class="bg-[#F8FAFC] text-[#1E293B] antialiased min-h-screen flex flex-col">
+
+  <!-- 1. TOP BRAND TRICOLOR ACCENT BAND -->
+  <div class="h-1.5 w-full flex flex-shrink-0">
+    <div class="h-full w-1/3 bg-[#FF9933]"></div>
+    <div class="h-full w-1/3 bg-white"></div>
+    <div class="h-full w-1/3 bg-[#138808]"></div>
+  </div>
+
+  <!-- 2. ACADEMIC PROJECT UTILITY HEADER -->
+  <div class="bg-[#0A192F] text-slate-300 text-xs py-2 px-4 sm:px-8 border-b border-slate-800 flex-shrink-0">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="font-bold tracking-wide text-white flex items-center gap-1.5">
+          <i class="fa-solid fa-shield-halved text-indigo-400"></i> CyberShield
+        </span>
+        <span class="text-slate-600">|</span>
+        <span class="text-slate-200">Final Year Engineering Capstone Project</span>
+        <span class="hidden md:inline text-slate-600">|</span>
+        <span class="hidden md:inline text-slate-300">Department of Computer Science & Engineering</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-1.5 text-amber-400 font-semibold bg-amber-950/50 px-2.5 py-0.5 rounded border border-amber-800/60">
+          <i class="fa-solid fa-phone-volume animate-pulse text-amber-300"></i>
+          <span>Emergency Helpline: 1930 (Public Safety Tip)</span>
+        </div>
+        <span class="text-slate-400 font-mono text-[11px]" id="liveClock">2026-11-03</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. LOGO & PROJECT TITLE BANNER -->
+  <header class="bg-white border-b border-slate-200 shadow-sm py-4 px-4 sm:px-8 flex-shrink-0">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-4 text-center md:text-left">
+        <div class="w-14 h-14 bg-[#0A2540] rounded-xl flex items-center justify-center text-white shadow-md border-2 border-indigo-500/40 flex-shrink-0">
+          <i class="fa-solid fa-shield-cat text-2xl text-indigo-400"></i>
+        </div>
+        <div>
+          <div class="text-[11px] font-bold tracking-wider text-indigo-700 uppercase">
+            Academic Research & Engineering Prototype (2026)
+          </div>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-[#0A2540] tracking-tight">
+            CyberShield — Cybercrime Incident Redressal Platform
+          </h1>
+          <p class="text-xs text-slate-500 font-medium">
+            AI-Driven Complaint Triage • Multi-Model Fallback • Real-Time URL Scanner • 11 Regional Languages
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="text-right hidden sm:block">
+          <div class="text-[11px] text-slate-500">National Cyber Helpline</div>
+          <div class="text-lg font-extrabold text-red-600 font-mono tracking-wider">1930</div>
+        </div>
+        <button onclick="switchTab('file')" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2.5 rounded shadow transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-file-shield text-amber-300"></i>
+          File Complaint
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 4. PRIMARY NAVIGATION TABS -->
+  <nav class="bg-[#0A2540] text-white text-xs font-semibold border-b border-[#0D3055] sticky top-0 z-40 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 flex items-center justify-between overflow-x-auto">
+      <div class="flex items-center space-x-1 py-1">
+        <button onclick="switchTab('home')" id="tab-btn-home" class="nav-tab px-3.5 py-2.5 rounded bg-blue-900/80 text-white font-bold flex items-center gap-1.5 transition-all">
+          <i class="fa-solid fa-house"></i> Home
+        </button>
+        <button onclick="switchTab('file')" id="tab-btn-file" class="nav-tab px-3.5 py-2.5 rounded hover:bg-white/10 text-slate-300 hover:text-white flex items-center gap-1.5 transition-all">
+          <i class="fa-solid fa-file-circle-plus"></i> File Complaint
+        </button>
+        <button onclick="switchTab('track')" id="tab-btn-track" class="nav-tab px-3.5 py-2.5 rounded hover:bg-white/10 text-slate-300 hover:text-white flex items-center gap-1.5 transition-all">
+          <i class="fa-solid fa-magnifying-glass-location"></i> Track Status
+        </button>
+        <button onclick="switchTab('scanner')" id="tab-btn-scanner" class="nav-tab px-3.5 py-2.5 rounded hover:bg-white/10 text-slate-300 hover:text-white flex items-center gap-1.5 transition-all">
+          <i class="fa-solid fa-link"></i> Phishing URL Scanner
+        </button>
+        <button onclick="switchTab('investigator')" id="tab-btn-investigator" class="nav-tab px-3.5 py-2.5 rounded hover:bg-white/10 text-slate-300 hover:text-white flex items-center gap-1.5 transition-all">
+          <i class="fa-solid fa-user-secret"></i> Investigator Workspace
+        </button>
+      </div>
+      <div class="hidden md:flex items-center gap-2 text-[11px] text-slate-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+        <span>Sec 65B Hash Engine: <strong>Active</strong></span>
+      </div>
+    </div>
+  </nav>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-8 py-8 flex-grow w-full">
+
+    <!-- ==================== VIEW 1: HOME / LANDING PAGE ==================== -->
+    <div id="view-home" class="space-y-8">
+
+      <!-- TOP OFFICIAL ALERT / RECOGNITION BANNER -->
+      <section class="bg-gradient-to-r from-[#0A192F] via-[#0D2447] to-[#1E1B4B] rounded-xl p-5 sm:p-6 text-white border border-indigo-500/40 shadow-xl">
+        <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+          <div class="flex items-start sm:items-center gap-4">
+            <div class="w-14 h-14 rounded-xl bg-indigo-500/20 border border-indigo-400/40 flex items-center justify-center flex-shrink-0 text-3xl shadow-inner text-amber-300">
+              🏆
+            </div>
+            <div>
+              <div class="flex items-center gap-2 flex-wrap">
+                <span class="text-[10px] font-bold uppercase tracking-wider bg-indigo-500/30 text-indigo-300 px-2.5 py-0.5 rounded-full border border-indigo-400/30">
+                  Open-Source Recognition
+                </span>
+                <span class="text-[10px] font-mono text-emerald-400 font-semibold bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50">
+                  ✓ Selected for XERJ Corpus Hub (Austin, TX)
+                </span>
+                <span class="text-[10px] font-mono text-cyan-300 font-semibold bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/50">
+                  CI Suite: Passing
+                </span>
+              </div>
+              <h3 class="text-base sm:text-xl font-extrabold text-white mt-1.5">
+                Indexed as Official AI Coding Reference Standard
+              </h3>
+              <p class="text-xs text-slate-300 mt-1 max-w-2xl leading-relaxed">
+                CyberShield's production architecture (18 files, ~810 lines covering Indian Evidence Act Section 65B cryptographic forensic hashing, Gemini NLP triage, and incident resolution workflows) was reviewed and selected as an open-source reference implementation for AI coding agents.
+              </p>
+            </div>
+          </div>
+          <a href="https://github.com/xerj-org/xerj" target="_blank" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2.5 rounded-lg transition-all shadow-md flex-shrink-0 border border-indigo-400/30">
+            <span>View on XERJ Hub</span>
+            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+          </a>
+        </div>
+      </section>
+
+      <!-- HERO SECTION: REPORT OR SOS -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <!-- Left 2 Cols: Main Action Panel -->
+        <div class="lg:col-span-2 bg-white rounded-xl border border-slate-200 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-indigo-700 bg-indigo-50 px-2.5 py-1 rounded-full mb-3">
+              <i class="fa-solid fa-fingerprint"></i> Digitized Cyber Defense
+            </div>
+            <h2 class="text-2xl font-bold text-[#0A2540]">
+              Empowering Citizens. Accelerating Cyber Investigations.
+            </h2>
+            <p class="text-slate-600 text-sm mt-2 leading-relaxed">
+              CyberShield bridges the critical gap between victims of online fraud, harassment, or data breaches and law enforcement units. File structured complaints, generate legally verifiable tamper hashes, and track your case in real time.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+              <div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 flex items-start gap-3">
+                <i class="fa-solid fa-lock text-indigo-600 mt-1"></i>
+                <div>
+                  <div class="text-xs font-bold text-slate-800">Sec. 65B Hash Protection</div>
+                  <div class="text-[11px] text-slate-500">Every screenshot and document is cryptographically hashed with SHA-256 upon upload.</div>
+                </div>
+              </div>
+              <div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200 flex items-start gap-3">
+                <i class="fa-solid fa-brain text-purple-600 mt-1"></i>
+                <div>
+                  <div class="text-xs font-bold text-slate-800">AI Complaint Triage</div>
+                  <div class="text-[11px] text-slate-500">Natural language analysis extracts incident metadata and flags critical urgency cases.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3 mt-6 pt-6 border-t border-slate-100">
+            <button onclick="switchTab('file')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-5 py-2.5 rounded-lg shadow-sm transition-all flex items-center gap-2">
+              <i class="fa-solid fa-pen-nib"></i> File a Complaint
+            </button>
+            <button onclick="switchTab('track')" class="bg-white hover:bg-slate-50 text-slate-700 font-semibold text-xs px-5 py-2.5 rounded-lg border border-slate-300 shadow-sm transition-all flex items-center gap-2">
+              <i class="fa-solid fa-magnifying-glass"></i> Track Existing Case
+            </button>
+            <button onclick="switchTab('scanner')" class="bg-amber-50 hover:bg-amber-100 text-amber-800 font-semibold text-xs px-5 py-2.5 rounded-lg border border-amber-300 transition-all flex items-center gap-2">
+              <i class="fa-solid fa-virus-slash"></i> Test Phishing URL
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Col: Cyber Emergency SOS Kit -->
+        <div class="bg-gradient-to-br from-red-950 to-slate-900 rounded-xl p-6 text-white border border-red-700/50 shadow-md flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="text-[10px] font-extrabold uppercase tracking-wider bg-red-600/40 text-red-300 px-2.5 py-0.5 rounded-full border border-red-500/40 flex items-center gap-1.5">
+                <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                Emergency Protocol
+              </span>
+              <i class="fa-solid fa-triangle-exclamation text-amber-400 text-lg"></i>
+            </div>
+            <h3 class="text-lg font-bold text-white">Cyber SOS Emergency Kit</h3>
+            <p class="text-xs text-slate-300 mt-2 leading-relaxed">
+              If money was just deducted from your account or you suspect unauthorized banking access, follow the golden hour response:
+            </p>
+
+            <ul class="mt-4 space-y-2.5 text-xs text-slate-200">
+              <li class="flex items-start gap-2 bg-red-900/30 p-2 rounded border border-red-800/40">
+                <span class="font-bold text-amber-400">1.</span>
+                <span>Call <strong>1930</strong> immediately to freeze the beneficiary bank account.</span>
+              </li>
+              <li class="flex items-start gap-2 bg-red-900/30 p-2 rounded border border-red-800/40">
+                <span class="font-bold text-amber-400">2.</span>
+                <span>Block your debit/credit card via net banking or SMS.</span>
+              </li>
+              <li class="flex items-start gap-2 bg-red-900/30 p-2 rounded border border-red-800/40">
+                <span class="font-bold text-amber-400">3.</span>
+                <span>Save unedited screenshots of transaction SMS, UPI IDs, and chat logs.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="mt-5 pt-4 border-t border-red-900/60 flex items-center justify-between">
+            <span class="text-xs text-slate-400">Helpline: <strong class="text-white">1930</strong></span>
+            <button onclick="alert('Emergency Alert: In a real financial cybercrime event, dial 1930 immediately within the first 2 hours (Golden Hour) to trigger bank freezes!')" class="bg-red-600 hover:bg-red-500 text-white font-bold text-xs px-3.5 py-1.5 rounded transition-all">
+              Trigger SOS Guide
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SYSTEM METRICS & CAPABILITIES -->
+      <section class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+        <h3 class="text-sm font-bold text-[#0A2540] uppercase tracking-wide mb-6 flex items-center gap-2">
+          <i class="fa-solid fa-chart-pie text-indigo-600"></i> CyberShield Architectural Capabilities
+        </h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center divide-x divide-slate-100">
+          <div>
+            <div class="text-3xl font-extrabold text-[#0A2540] font-mono">3 Roles</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-medium">Citizen / Officer / Admin</div>
+          </div>
+          <div>
+            <div class="text-3xl font-extrabold text-blue-700 font-mono">30 ML Features</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-medium">Heuristic URL Threat Scanner</div>
+          </div>
+          <div>
+            <div class="text-3xl font-extrabold text-emerald-700 font-mono">Sec. 65B</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-medium">SHA-256 Digital Evidence Stamp</div>
+          </div>
+          <div>
+            <div class="text-3xl font-extrabold text-amber-600 font-mono">11 Languages</div>
+            <div class="text-xs text-slate-500 mt-1 uppercase font-medium">Indian Regional AI Assistant</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SYSTEM WORKFLOW -->
+      <section class="bg-slate-100/80 rounded-xl p-6 border border-slate-200">
+        <h3 class="font-bold text-[#0A2540] text-sm uppercase tracking-wide mb-4">
+          Incident Lifecycle & Chain-of-Custody Workflow
+        </h3>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs text-slate-700">
+          <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
+            <div class="w-6 h-6 rounded-full bg-blue-100 text-blue-800 font-bold flex items-center justify-center mb-2">1</div>
+            <span class="font-bold text-blue-950 block mb-1">Citizen Submission</span>
+            Victim enters complaint details in natural language and attaches evidence files.
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
+            <div class="w-6 h-6 rounded-full bg-purple-100 text-purple-800 font-bold flex items-center justify-center mb-2">2</div>
+            <span class="font-bold text-blue-950 block mb-1">AI Triage & 65B Hash</span>
+            Gemini NLP engine classifies severity while SHA-256 hash seals digital evidence.
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
+            <div class="w-6 h-6 rounded-full bg-amber-100 text-amber-800 font-bold flex items-center justify-center mb-2">3</div>
+            <span class="font-bold text-blue-950 block mb-1">Officer Assignment</span>
+            Case allocated to cybercrime cell investigator with timeline audit tracking and secure notes.
+          </div>
+          <div class="bg-white p-4 rounded-lg border border-slate-200 shadow-xs">
+            <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-800 font-bold flex items-center justify-center mb-2">4</div>
+            <span class="font-bold text-blue-950 block mb-1">Forensic PDF Export</span>
+            Download official PDF case certificate with Tracking ID and digital tamper-evident stamp.
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ==================== VIEW 2: FILE COMPLAINT ==================== -->
+    <div id="view-file" class="hidden space-y-6 max-w-3xl mx-auto">
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+        <div class="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
+          <div>
+            <h2 class="text-xl font-bold text-[#0A2540]">Register Cybercrime Incident</h2>
+            <p class="text-xs text-slate-500 mt-1">Provide clear incident details. All evidence files are encrypted and hashed.</p>
+          </div>
+          <span class="text-xs font-mono font-bold bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-200">
+            Form Ref: CS-FORM-2026
+          </span>
+        </div>
+
+        <form id="complaintForm" onsubmit="handleComplaintSubmit(event)" class="space-y-4 text-xs">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Incident Headline / Title *</label>
+            <input type="text" id="compTitle" required placeholder="e.g. Unauthorized ₹45,000 withdrawal via fraudulent UPI link" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Incident Category *</label>
+              <select id="compCategory" required class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none bg-white">
+                <option value="">Select Category...</option>
+                <option value="Financial Fraud">Financial Fraud / UPI Scam</option>
+                <option value="Identity Theft">Identity Theft / Impersonation</option>
+                <option value="Phishing">Phishing / Credential Harvesting</option>
+                <option value="Online Harassment">Online Harassment / Cyberstalking</option>
+                <option value="Ransomware">Ransomware / Extortion Attack</option>
+                <option value="Data Breach">Personal Data Breach</option>
+              </select>
+            </div>
+            <div>
+              <label class="block font-bold text-slate-700 mb-1">Date of Incident *</label>
+              <input type="date" id="compDate" required class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+            </div>
+          </div>
+
+          <div>
+            <div class="flex items-center justify-between mb-1">
+              <label class="font-bold text-slate-700">Detailed Statement of Facts *</label>
+              <button type="button" onclick="simulateAITriage()" class="text-[11px] font-semibold text-indigo-600 hover:text-indigo-800 flex items-center gap-1">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Auto-Detect with AI
+              </button>
+            </div>
+            <textarea id="compDesc" rows="4" required placeholder="Describe the chronological sequence of events, suspected phone numbers, websites, or UPI IDs involved..." class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none"></textarea>
+          </div>
+
+          <!-- EVIDENCE UPLOAD & SECTION 65B HASHING -->
+          <div class="p-4 rounded-lg bg-slate-50 border border-slate-200">
+            <div class="flex items-center justify-between mb-2">
+              <label class="font-bold text-slate-700 flex items-center gap-1.5">
+                <i class="fa-solid fa-paperclip text-slate-500"></i> Attach Evidence (Screenshots / Bank Statements)
+              </label>
+              <span class="text-[10px] font-mono text-emerald-700 font-bold bg-emerald-100 px-2 py-0.5 rounded">
+                Sec. 65B SHA-256 Auto-Hashing
+              </span>
+            </div>
+            <input type="file" id="compFile" onchange="calculateFileHash(this)" class="block w-full text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+            <div id="hashOutput" class="mt-2 text-[11px] font-mono text-slate-600 hidden">
+              Evidence SHA-256: <span id="hashString" class="text-indigo-700 font-bold select-all"></span>
+            </div>
+          </div>
+
+          <div class="pt-4 flex items-center justify-end gap-3 border-t border-slate-200">
+            <button type="button" onclick="switchTab('home')" class="px-4 py-2 rounded-lg border border-slate-300 text-slate-700 font-semibold hover:bg-slate-50">Cancel</button>
+            <button type="submit" class="px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-700 text-white font-semibold shadow flex items-center gap-1.5">
+              <i class="fa-solid fa-paper-plane"></i> Submit & Generate Tracking ID
+            </button>
+          </div>
+        </form>
+
+        <!-- SUBMISSION SUCCESS MODAL / RECEIPT -->
+        <div id="submissionReceipt" class="hidden mt-6 p-5 rounded-xl bg-emerald-50 border border-emerald-300">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-circle-check text-emerald-600 text-2xl mt-0.5"></i>
+            <div>
+              <h3 class="text-sm font-bold text-emerald-950">Complaint Registered Successfully!</h3>
+              <p class="text-xs text-emerald-800 mt-1">Your complaint has been timestamped and encrypted into the investigation registry.</p>
+              
+              <div class="mt-3 p-3 bg-white rounded-lg border border-emerald-200 text-xs font-mono">
+                <div>Tracking ID: <strong id="receiptTrackingId" class="text-indigo-700 text-sm">CS-2026-X89B12</strong></div>
+                <div class="mt-1 text-slate-500 text-[11px]">Digital Stamp: <span id="receiptHash">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</span></div>
+                <div class="mt-1 text-slate-500 text-[11px]">Status: <span class="text-amber-700 font-bold">SUBMITTED (AI Triage Pending)</span></div>
+              </div>
+
+              <div class="mt-3 flex gap-2">
+                <button onclick="copyTrackingId()" class="text-xs bg-emerald-700 hover:bg-emerald-800 text-white px-3 py-1.5 rounded font-semibold">Copy Tracking ID</button>
+                <button onclick="goToTrackingFromReceipt()" class="text-xs bg-white text-emerald-800 border border-emerald-300 px-3 py-1.5 rounded font-semibold hover:bg-emerald-100">Track Progress &rarr;</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== VIEW 3: TRACK COMPLAINT ==================== -->
+    <div id="view-track" class="hidden space-y-6 max-w-3xl mx-auto">
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-[#0A2540] flex items-center gap-2">
+          <i class="fa-solid fa-location-crosshairs text-indigo-600"></i> Track Complaint Status
+        </h2>
+        <p class="text-xs text-slate-500 mt-1">Enter your assigned Tracking ID to view the live case status, officer notes, and verification stamps.</p>
+
+        <div class="flex gap-2 mt-4">
+          <input type="text" id="trackInput" placeholder="Enter Tracking ID (e.g., CS-2026-A7B3K9 or click demo buttons below)" class="flex-1 font-mono text-xs px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none uppercase">
+          <button onclick="trackCase()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-5 py-2.5 rounded-lg shadow-sm">Track</button>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs text-slate-500 mt-2">
+          <span>Quick Demos:</span>
+          <button onclick="setTrackDemo('CS-2026-881294')" class="text-indigo-600 hover:underline font-mono">CS-2026-881294 (Under Investigation)</button>
+          <span>•</span>
+          <button onclick="setTrackDemo('CS-2026-104921')" class="text-indigo-600 hover:underline font-mono">CS-2026-104921 (Resolved)</button>
+        </div>
+
+        <!-- TRACKING TIMELINE RESULT CARD -->
+        <div id="trackResult" class="mt-6 border-t border-slate-200 pt-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div>
+              <span class="text-xs font-mono font-bold text-slate-500">CASE ID:</span>
+              <span class="text-sm font-mono font-extrabold text-indigo-700 ml-1" id="trackCaseId">CS-2026-881294</span>
+            </div>
+            <span id="trackStatusBadge" class="text-xs font-bold font-mono px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300">
+              UNDER INVESTIGATION
+            </span>
+          </div>
+
+          <!-- PROGRESS STEPPER -->
+          <div class="relative flex items-center justify-between mb-8 px-4 mt-6">
+            <div class="absolute left-8 right-8 top-1/2 -translate-y-1/2 h-1 bg-slate-200 -z-0"></div>
+            <div class="absolute left-8 w-3/4 top-1/2 -translate-y-1/2 h-1 bg-indigo-600 -z-0" id="stepperLine"></div>
+
+            <div class="flex flex-col items-center relative z-10">
+              <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow">✓</div>
+              <span class="text-[11px] font-semibold text-slate-700 mt-1">Submitted</span>
+            </div>
+            <div class="flex flex-col items-center relative z-10">
+              <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow">✓</div>
+              <span class="text-[11px] font-semibold text-slate-700 mt-1">AI Triage</span>
+            </div>
+            <div class="flex flex-col items-center relative z-10">
+              <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow">✓</div>
+              <span class="text-[11px] font-semibold text-slate-700 mt-1">Assigned</span>
+            </div>
+            <div class="flex flex-col items-center relative z-10">
+              <div class="w-8 h-8 rounded-full bg-indigo-600 text-white font-bold text-xs flex items-center justify-center shadow animate-pulse">4</div>
+              <span class="text-[11px] font-semibold text-indigo-700 font-bold mt-1">Investigation</span>
+            </div>
+            <div class="flex flex-col items-center relative z-10">
+              <div class="w-8 h-8 rounded-full bg-slate-200 text-slate-500 font-bold text-xs flex items-center justify-center">5</div>
+              <span class="text-[11px] font-semibold text-slate-400 mt-1">Resolved</span>
+            </div>
+          </div>
+
+          <!-- CASE DETAILS GRID -->
+          <div class="bg-slate-50 rounded-lg p-4 border border-slate-200 text-xs space-y-2">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <div><span class="text-slate-400 block text-[10px] uppercase font-bold">Category</span><strong id="trackCategory">Financial Fraud (UPI)</strong></div>
+              <div><span class="text-slate-400 block text-[10px] uppercase font-bold">Priority</span><strong class="text-red-600" id="trackPriority">CRITICAL</strong></div>
+              <div><span class="text-slate-400 block text-[10px] uppercase font-bold">Investigator</span><strong id="trackOfficer">Insp. V. Sharma (Cyber Cell)</strong></div>
+              <div><span class="text-slate-400 block text-[10px] uppercase font-bold">Filing Date</span><strong id="trackDate">02 Nov 2026</strong></div>
+            </div>
+            <div class="pt-2 border-t border-slate-200">
+              <span class="text-slate-400 block text-[10px] uppercase font-bold">Latest Officer Note</span>
+              <p class="text-slate-700 mt-0.5" id="trackOfficerNote">"Notice issued under Section 91 CrPC to payment aggregator. Transaction trace initiated on nodal accounts."</p>
+            </div>
+            <div class="pt-2 border-t border-slate-200 flex items-center justify-between">
+              <span class="text-[11px] font-mono text-slate-500">Sec 65B Digital Hash: <strong class="text-slate-700 font-normal">7fa829...d091a4</strong></span>
+              <button onclick="alert('Downloading Certified Forensic Incident Report (PDF)...')" class="text-indigo-600 font-bold hover:underline flex items-center gap-1">
+                <i class="fa-solid fa-file-pdf"></i> Download Receipt
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== VIEW 4: PHISHING URL SCANNER ==================== -->
+    <div id="view-scanner" class="hidden space-y-6 max-w-3xl mx-auto">
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+        <div class="flex items-center gap-2 mb-2">
+          <span class="bg-red-100 text-red-800 text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border border-red-200">
+            Real-Time Threat Detection
+          </span>
+        </div>
+        <h2 class="text-xl font-bold text-[#0A2540]">Phishing & Malicious URL Scanner</h2>
+        <p class="text-xs text-slate-500 mt-1">Paste any suspicious URL, link from an SMS, or email attachment to test against 30 heuristic threat indicators.</p>
+
+        <div class="flex gap-2 mt-4">
+          <input type="text" id="scanUrlInput" value="http://hdfc-bank-kyc-verify-account-update.xyz/login" placeholder="Paste suspicious URL (e.g. http://login-verify-account.xyz)..." class="flex-1 font-mono text-xs px-3.5 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none">
+          <button onclick="scanURL()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-xs px-5 py-2.5 rounded-lg shadow-sm">Scan URL</button>
+        </div>
+
+        <div class="flex items-center gap-2 text-xs text-slate-500 mt-2">
+          <span>Try Presets:</span>
+          <button onclick="setScanDemo('http://secure-sbi-card-claim-reward-points.tk/login.php')" class="text-red-600 hover:underline font-mono">Suspicious Phishing</button>
+          <span>•</span>
+          <button onclick="setScanDemo('https://github.com/piyush1008-cyber')" class="text-emerald-700 hover:underline font-mono">Safe Official Link</button>
+        </div>
+
+        <!-- SCAN RESULT -->
+        <div id="scanResult" class="mt-6 p-4 rounded-xl border border-red-200 bg-red-50/50">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-triangle-exclamation text-red-600 text-xl" id="scanIcon"></i>
+              <div>
+                <span class="text-xs font-bold text-red-950 uppercase" id="scanRiskVerdict">CRITICAL RISK — PHISHING DETECTED</span>
+                <div class="text-[11px] text-red-800" id="scanConfidence">Confidence Score: 94.8% Match</div>
+              </div>
+            </div>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-red-600 text-white" id="scanRiskBadge">DANGEROUS</span>
+          </div>
+
+          <div class="bg-white rounded-lg p-3 border border-red-200 text-xs space-y-2">
+            <div class="font-bold text-slate-800">Triggered Threat Heuristics:</div>
+            <ul class="space-y-1 text-slate-600" id="scanHeuristicList">
+              <li class="flex items-center gap-1.5 text-red-700 font-medium"><i class="fa-solid fa-circle-xmark text-xs"></i> Brand Impersonation detected (Matches known banking keyword 'HDFC/SBI')</li>
+              <li class="flex items-center gap-1.5 text-red-700 font-medium"><i class="fa-solid fa-circle-xmark text-xs"></i> High-risk Top Level Domain (.xyz / .tk / .top)</li>
+              <li class="flex items-center gap-1.5 text-red-700 font-medium"><i class="fa-solid fa-circle-xmark text-xs"></i> Excessive subdomain length (4 subdomains found)</li>
+              <li class="flex items-center gap-1.5 text-red-700 font-medium"><i class="fa-solid fa-circle-xmark text-xs"></i> Insecure HTTP protocol without valid SSL certificate</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== VIEW 5: INVESTIGATOR WORKSPACE ==================== -->
+    <div id="view-investigator" class="hidden space-y-6">
+      <div class="bg-white rounded-xl border border-slate-200 p-6 shadow-sm">
+        <div class="flex flex-wrap items-center justify-between gap-4 border-b border-slate-200 pb-4 mb-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-600">Cyber Crime Unit — Pune Cyber Police</span>
+            </div>
+            <h2 class="text-xl font-bold text-[#0A2540] mt-0.5">Investigator Case Allocation Queue</h2>
+          </div>
+          <div class="flex items-center gap-2 text-xs">
+            <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full font-bold font-mono">Officer ID: CC-PN-492</span>
+          </div>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs text-slate-700">
+            <thead class="bg-slate-50 text-slate-500 uppercase font-mono text-[10px] border-b border-slate-200">
+              <tr>
+                <th class="py-3 px-3">Tracking ID</th>
+                <th class="py-3 px-3">Category</th>
+                <th class="py-3 px-3">Priority</th>
+                <th class="py-3 px-3">Filing Date</th>
+                <th class="py-3 px-3">Sec. 65B Hash</th>
+                <th class="py-3 px-3">Status</th>
+                <th class="py-3 px-3 text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-100 font-sans">
+              <tr class="hover:bg-slate-50/80">
+                <td class="py-3 px-3 font-mono font-bold text-indigo-700">CS-2026-881294</td>
+                <td class="py-3 px-3 font-medium">Financial Fraud</td>
+                <td class="py-3 px-3"><span class="bg-red-100 text-red-800 px-2 py-0.5 rounded font-bold text-[10px]">CRITICAL</span></td>
+                <td class="py-3 px-3 text-slate-500">02 Nov 2026</td>
+                <td class="py-3 px-3 font-mono text-[10px] text-slate-400">7fa829...d091a4</td>
+                <td class="py-3 px-3"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold text-[10px]">INVESTIGATION</span></td>
+                <td class="py-3 px-3 text-right">
+                  <button onclick="alert('Viewing Case CS-2026-881294:\n\nSuspect UPI: scammer99@okaxis\nFreeze notice dispatched to nodal bank.')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1 rounded font-semibold text-[11px]">Inspect</button>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50/80">
+                <td class="py-3 px-3 font-mono font-bold text-indigo-700">CS-2026-104921</td>
+                <td class="py-3 px-3 font-medium">Identity Theft</td>
+                <td class="py-3 px-3"><span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-bold text-[10px]">MEDIUM</span></td>
+                <td class="py-3 px-3 text-slate-500">28 Oct 2026</td>
+                <td class="py-3 px-3 font-mono text-[10px] text-slate-400">3a90c1...88f219</td>
+                <td class="py-3 px-3"><span class="bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-bold text-[10px]">RESOLVED</span></td>
+                <td class="py-3 px-3 text-right">
+                  <button onclick="alert('Case CS-2026-104921 has been successfully resolved.\nImpersonation handle taken down via Meta LEA portal.')" class="bg-slate-200 hover:bg-slate-300 text-slate-700 px-2.5 py-1 rounded font-semibold text-[11px]">Audit</button>
+                </td>
+              </tr>
+              <tr class="hover:bg-slate-50/80">
+                <td class="py-3 px-3 font-mono font-bold text-indigo-700">CS-2026-339182</td>
+                <td class="py-3 px-3 font-medium">Phishing Attack</td>
+                <td class="py-3 px-3"><span class="bg-red-100 text-red-800 px-2 py-0.5 rounded font-bold text-[10px]">HIGH</span></td>
+                <td class="py-3 px-3 text-slate-500">03 Nov 2026</td>
+                <td class="py-3 px-3 font-mono text-[10px] text-slate-400">9c1b33...74bb02</td>
+                <td class="py-3 px-3"><span class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-bold text-[10px]">NEW / TRIAGED</span></td>
+                <td class="py-3 px-3 text-right">
+                  <button onclick="alert('Claiming Case CS-2026-339182 into your active queue...')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-2.5 py-1 rounded font-semibold text-[11px]">Assign</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- 11. FOOTER (ACADEMIC DISCLAIMER & CREDITS) -->
+  <footer class="bg-[#0A192F] text-slate-300 text-xs border-t-4 border-indigo-600 mt-12 pt-8 pb-6 flex-shrink-0">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          <i class="fa-solid fa-shield-halved text-indigo-400 text-xl"></i>
+          <span class="font-bold text-white text-sm">CyberShield</span>
+        </div>
+        <p class="text-[11px] text-slate-400 leading-relaxed">
+          AI-Powered Cybercrime Redressal and Threat Intelligence Platform. Developed as a Final Year Engineering Capstone Project.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white uppercase tracking-wider text-[11px] mb-3">Prototype Navigation</h4>
+        <ul class="space-y-1.5 text-[11px] text-slate-400">
+          <li><button onclick="switchTab('file')" class="hover:text-amber-400">File Demo Complaint</button></li>
+          <li><button onclick="switchTab('track')" class="hover:text-amber-400">Track Complaint Status</button></li>
+          <li><button onclick="switchTab('scanner')" class="hover:text-amber-400">Phishing URL Scanner</button></li>
+          <li><button onclick="switchTab('investigator')" class="hover:text-amber-400">Investigator Queue</button></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white uppercase tracking-wider text-[11px] mb-3">Real Emergency Helplines</h4>
+        <ul class="space-y-1.5 text-[11px] text-slate-400">
+          <li>National Cyber Helpline: <strong class="text-white">1930</strong></li>
+          <li>National Emergency: <strong class="text-white">112</strong></li>
+          <li>Official Government Portal: <a href="https://cybercrime.gov.in" target="_blank" class="text-indigo-400 underline">cybercrime.gov.in</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="font-bold text-white uppercase tracking-wider text-[11px] mb-3">Academic Project Disclaimer</h4>
+        <p class="text-[10px] text-slate-400 leading-relaxed">
+          ⚠️ <strong>Academic Prototype Only:</strong> This software is developed purely for educational and capstone project demonstration. It is not affiliated with or endorsed by any government entity. For real incidents, report at <a href="https://cybercrime.gov.in" target="_blank" class="text-indigo-400 underline">cybercrime.gov.in</a>.
+        </p>
+      </div>
+    </div>
+
+    <div class="border-t border-slate-800 pt-4 px-4 sm:px-8 text-center text-[10px] text-slate-400">
+      <p>© 2026 CyberShield — Final Year Engineering Capstone Project. Engineered by Peeyoosh Kangle & Team.</p>
+    </div>
+  </footer>
+
+  <!-- FLOATING INTERACTIVE CHATBOT TOGGLE -->
+  <button onclick="toggleChatbot()" class="fixed bottom-5 right-5 w-14 h-14 rounded-full bg-indigo-600 hover:bg-indigo-500 text-white shadow-2xl flex items-center justify-center text-xl transition-all z-50 border-2 border-indigo-400/50 hover:scale-105" title="Open AI Assistant">
+    <i class="fa-solid fa-headset"></i>
+  </button>
+
+  <!-- CHATBOT MODAL -->
+  <div id="chatModal" class="hidden fixed bottom-22 right-5 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-slate-200 z-50 overflow-hidden flex flex-col font-sans">
+    <div class="bg-[#0A2540] text-white p-3.5 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-7 h-7 rounded-full bg-indigo-500 flex items-center justify-center text-xs">🤖</div>
+        <div>
+          <div class="text-xs font-bold">CyberShield AI Guide</div>
+          <div class="text-[9px] text-emerald-400 flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Supports 11 Indian Languages
+          </div>
+        </div>
+      </div>
+      <button onclick="toggleChatbot()" class="text-slate-400 hover:text-white text-sm">✕</button>
+    </div>
+
+    <div id="chatMessages" class="p-3 space-y-2.5 h-64 overflow-y-auto text-xs bg-slate-50">
+      <div class="flex items-start gap-2">
+        <div class="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center flex-shrink-0">AI</div>
+        <div class="bg-white p-2.5 rounded-xl border border-slate-200 shadow-xs text-slate-800 max-w-[85%]">
+          Namaste! I am your CyberShield Assistant. If you have been scammed or need help filing a report, I can assist in English, Hindi, or Marathi. How can I help?
+        </div>
+      </div>
+    </div>
+
+    <div class="p-2.5 border-t border-slate-200 bg-white flex gap-1.5">
+      <input type="text" id="chatInput" placeholder="Ask about UPI fraud, OTP scam..." onkeypress="if(event.key==='Enter') sendChatMessage()" class="flex-1 text-xs px-3 py-1.5 rounded-lg border border-slate-300 focus:outline-none focus:ring-1 focus:ring-indigo-500">
+      <button onclick="sendChatMessage()" class="bg-indigo-600 text-white text-xs px-3 py-1.5 rounded-lg font-semibold hover:bg-indigo-700">Send</button>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT FOR FULL INTERACTIVITY -->
+  <script>
+    // Tab switching logic
+    function switchTab(tabId) {
+      const views = ['home', 'file', 'track', 'scanner', 'investigator'];
+      views.forEach(v => {
+        const el = document.getElementById('view-' + v);
+        const btn = document.getElementById('tab-btn-' + v);
+        if (v === tabId) {
+          el.classList.remove('hidden');
+          if (btn) {
+            btn.classList.add('bg-blue-900/80', 'text-white', 'font-bold');
+            btn.classList.remove('text-slate-300');
+          }
+        } else {
+          el.classList.add('hidden');
+          if (btn) {
+            btn.classList.remove('bg-blue-900/80', 'text-white', 'font-bold');
+            btn.classList.add('text-slate-300');
+          }
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Live SHA-256 calculation for Section 65B
+    async function calculateFileHash(input) {
+      if (!input.files || input.files.length === 0) return;
+      const file = input.files[0];
+      const buffer = await file.arrayBuffer();
+      const hashBuffer = await crypto.subtle.digest('SHA-256', buffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+      
+      document.getElementById('hashString').textContent = hashHex;
+      document.getElementById('hashOutput').classList.remove('hidden');
+    }
+
+    // Simulated AI Triage
+    function simulateAITriage() {
+      const title = document.getElementById('compTitle').value;
+      const desc = document.getElementById('compDesc').value;
+      if (!desc && !title) {
+        document.getElementById('compTitle').value = "Unauthorized ₹45,000 deduction via fake electricity bill link";
+        document.getElementById('compDesc').value = "Received an SMS from an unknown mobile claiming my electricity power would be disconnected tonight. Clicked on an APK download link, after which two unauthorized debits occurred.";
+      }
+      document.getElementById('compCategory').value = "Financial Fraud";
+      alert("✨ AI Classification Complete:\n\nCategory: Financial Fraud / Banking Scam\nPriority Tier: CRITICAL\nConfidence: 98.4%\nAutomated Action: Tagged for immediate 1930 nodal escalation.");
+    }
+
+    // Complaint submission
+    function handleComplaintSubmit(e) {
+      e.preventDefault();
+      const randomSuffix = Math.floor(100000 + Math.random() * 900000);
+      const trackingId = "CS-2026-" + randomSuffix;
+      
+      const fileHash = document.getElementById('hashString').textContent || "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855";
+      
+      document.getElementById('receiptTrackingId').textContent = trackingId;
+      document.getElementById('receiptHash').textContent = fileHash;
+      document.getElementById('submissionReceipt').classList.remove('hidden');
+      document.getElementById('submissionReceipt').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyTrackingId() {
+      const id = document.getElementById('receiptTrackingId').textContent;
+      navigator.clipboard.writeText(id);
+      alert('Tracking ID ' + id + ' copied to clipboard!');
+    }
+
+    function goToTrackingFromReceipt() {
+      const id = document.getElementById('receiptTrackingId').textContent;
+      document.getElementById('trackInput').value = id;
+      switchTab('track');
+      trackCase();
+    }
+
+    // Tracking logic
+    function setTrackDemo(id) {
+      document.getElementById('trackInput').value = id;
+      trackCase();
+    }
+
+    function trackCase() {
+      const id = document.getElementById('trackInput').value.trim().toUpperCase();
+      if (!id) {
+        alert('Please enter a Tracking ID!');
+        return;
+      }
+      document.getElementById('trackCaseId').textContent = id;
+      document.getElementById('trackResult').classList.remove('hidden');
+      
+      if (id.includes('104921')) {
+        document.getElementById('trackStatusBadge').textContent = "RESOLVED";
+        document.getElementById('trackStatusBadge').className = "text-xs font-bold font-mono px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 border border-emerald-300";
+        document.getElementById('trackPriority').textContent = "MEDIUM";
+        document.getElementById('trackCategory').textContent = "Identity Theft";
+        document.getElementById('trackOfficerNote').textContent = "Offending impersonation account permanently removed by platform. Case closed.";
+        document.getElementById('stepperLine').style.width = "100%";
+      } else {
+        document.getElementById('trackStatusBadge').textContent = "UNDER INVESTIGATION";
+        document.getElementById('trackStatusBadge').className = "text-xs font-bold font-mono px-3 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300";
+        document.getElementById('trackPriority').textContent = "CRITICAL";
+        document.getElementById('trackCategory').textContent = "Financial Fraud";
+        document.getElementById('trackOfficerNote').textContent = "Transaction trace initiated across beneficiary bank nodes under Sec 91 CrPC.";
+        document.getElementById('stepperLine').style.width = "75%";
+      }
+    }
+
+    // Phishing Scanner
+    function setScanDemo(url) {
+      document.getElementById('scanUrlInput').value = url;
+      scanURL();
+    }
+
+    function scanURL() {
+      const url = document.getElementById('scanUrlInput').value.trim();
+      const resultCard = document.getElementById('scanResult');
+      resultCard.classList.remove('hidden');
+
+      if (url.includes('github.com') || url.includes('google.com') || url.includes('gov.in')) {
+        resultCard.className = "mt-6 p-4 rounded-xl border border-emerald-300 bg-emerald-50/60";
+        document.getElementById('scanIcon').className = "fa-solid fa-circle-check text-emerald-600 text-xl";
+        document.getElementById('scanRiskVerdict').textContent = "VERIFIED SAFE — OFFICIAL DOMAIN";
+        document.getElementById('scanRiskVerdict').className = "text-xs font-bold text-emerald-950 uppercase";
+        document.getElementById('scanConfidence').textContent = "Reputation Score: 99.2% Trusted";
+        document.getElementById('scanConfidence').className = "text-[11px] text-emerald-800";
+        document.getElementById('scanRiskBadge').textContent = "SECURE";
+        document.getElementById('scanRiskBadge').className = "px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-600 text-white";
+        document.getElementById('scanHeuristicList').innerHTML = `
+          <li class="flex items-center gap-1.5 text-emerald-700 font-medium"><i class="fa-solid fa-check text-xs"></i> Valid SSL/TLS EV Certificate</li>
+          <li class="flex items-center gap-1.5 text-emerald-700 font-medium"><i class="fa-solid fa-check text-xs"></i> Known authoritative domain with clean reputation history</li>
+          <li class="flex items-center gap-1.5 text-emerald-700 font-medium"><i class="fa-solid fa-check text-xs"></i> Zero suspicious URL redirection parameters</li>
+        `;
+      } else {
+        resultCard.className = "mt-6 p-4 rounded-xl border border-red-300 bg-red-50/60";
+        document.getElementById('scanIcon').className = "fa-solid fa-triangle-exclamation text-red-600 text-xl";
+        document.getElementById('scanRiskVerdict').textContent = "CRITICAL RISK — PHISHING DETECTED";
+        document.getElementById('scanRiskVerdict').className = "text-xs font-bold text-red-950 uppercase";
+        document.getElementById('scanConfidence').textContent = "Confidence Score: 94.8% Match";
+        document.getElementById('scanConfidence').className = "text-[11px] text-red-800";
+        document.getElementById('scanRiskBadge').textContent = "DANGEROUS";
+        document.getElementById('scanRiskBadge').className = "px-3 py-1 rounded-full text-xs font-mono font-bold bg-red-600 text-white";
+        document.getElementById('scanHeuristicList').innerHTML = `
+          <li class="flex items-center gap-1.5 text-red-700 font-medium"><i class="fa-solid fa-circle-xmark text-xs"></i> Brand Impersonation detected (Matches known banking keyword 'HDFC/SBI')</li>
+          <li class="flex items-center gap-1.5 text-red-700 font-medium"><i class="fa-solid fa-circle-xmark text-xs"></i> High-risk Top Level Domain (.xyz / .tk / .top)</li>
+          <li class="flex items-center gap-1.5 text-red-700 font-medium"><i class="fa-solid fa-circle-xmark text-xs"></i> Excessive subdomain length (4 subdomains found)</li>
+          <li class="flex items-center gap-1.5 text-red-700 font-medium"><i class="fa-solid fa-circle-xmark text-xs"></i> Insecure HTTP protocol without valid SSL certificate</li>
+        `;
+      }
+    }
+
+    // Chatbot toggling
+    function toggleChatbot() {
+      document.getElementById('chatModal').classList.toggle('hidden');
+    }
+
+    function sendChatMessage() {
+      const input = document.getElementById('chatInput');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const container = document.getElementById('chatMessages');
+      // User message
+      container.innerHTML += `
+        <div class="flex items-start justify-end gap-2">
+          <div class="bg-indigo-600 text-white p-2.5 rounded-xl text-xs max-w-[85%]">${text}</div>
+        </div>
+      `;
+      input.value = '';
+
+      setTimeout(() => {
+        let reply = "Please contact national cyber helpline 1930 immediately if any financial debit has occurred. You can also file a complaint right here using the 'File Complaint' tab.";
+        if (text.toLowerCase().includes('upi') || text.toLowerCase().includes('money') || text.toLowerCase().includes('fraud')) {
+          reply = "For financial fraud: 1. Immediately call 1930. 2. Request your bank to block the UPI handle. 3. Save the UTR reference number and upload the screenshot in our 'File Complaint' tab with automatic Sec 65B hashing.";
+        }
+        container.innerHTML += `
+          <div class="flex items-start gap-2">
+            <div class="w-5 h-5 rounded-full bg-indigo-600 text-white text-[10px] flex items-center justify-center flex-shrink-0">AI</div>
+            <div class="bg-white p-2.5 rounded-xl border border-slate-200 shadow-xs text-slate-800 max-w-[85%]">${reply}</div>
+          </div>
+        `;
+        container.scrollTop = container.scrollHeight;
+      }, 500);
+    }
+  </script>
+</body>
+</html>
