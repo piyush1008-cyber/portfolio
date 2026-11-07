@@ -182,6 +182,25 @@
             font-weight: 700;
             color: #111827;
         }
+        .project-live-link {
+            font-size: 8px;
+            font-weight: 700;
+            color: #166534;
+            text-decoration: none;
+            margin-left: 5px;
+            padding: 1.5px 5px;
+            border-radius: 3px;
+            background: rgba(34, 107, 84, 0.08);
+            border: 1px solid rgba(34, 107, 84, 0.25);
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            transition: all 0.2s ease;
+        }
+        .project-live-link:hover {
+            background: rgba(34, 107, 84, 0.18);
+            color: #0f3d20;
+        }
         .project-date {
             font-size: 9.8px;
             font-weight: 600;
@@ -309,10 +328,12 @@
         <div class="header">
             <div class="name">PEEYOOSH KANGLE</div>
             <div class="contact-row">
+                <span class="contact-phone">📍 Pune, Maharashtra</span>
                 <span class="contact-phone">📞 +91 9976301008</span>
                 <a href="mailto:piyushkangle@gmail.com" title="Email Peeyoosh">✉️ piyushkangle@gmail.com</a>
                 <a href="https://www.linkedin.com/in/peeyoosh-kangle-652694383" target="_blank" title="View LinkedIn Profile">🔗 LinkedIn</a>
                 <a href="https://github.com/piyush1008-cyber" target="_blank" title="View GitHub Profile">💻 GitHub</a>
+                <a href="https://piyush1008-cyber.github.io/portfolio/" target="_blank" title="View Portfolio Website">🌐 Portfolio</a>
             </div>
         </div>
 
@@ -321,7 +342,7 @@
             <div class="section-title">SUMMARY</div>
         </div>
         <div class="summary-block">
-            Motivated Computer Science Engineer with a strong academic foundation (<strong>Cumulative CGPA: 8.44, Sem VI: 9.22</strong>) and practical expertise in building scalable Relational Database Architectures, ETL Data Ingestion Pipelines, and Backend Services using <strong>SQL, Python, and Node.js</strong>. Skilled in 3NF schema design, complex query optimization, indexing strategies, and transactional integrity (ACID). Proven experience with RESTful API engineering, automated data validation, and analytical troubleshooting. Seeking a <strong>Software Engineer Trainee / Database Support</strong> role at <strong>Yardi Systems</strong> to deliver robust enterprise solutions.
+            Motivated Computer Science Engineer with a strong academic foundation (<strong>Cumulative CGPA: 8.44, Sem VI: 9.22</strong>) and practical expertise in building scalable Relational Database Architectures, ETL Data Ingestion Pipelines, and Backend Microservices using <strong>SQL, Python, C++, and Node.js</strong>. Skilled in 3NF schema design, complex query optimization, indexing strategies, and transactional integrity (ACID). Experienced in RESTful API engineering, automated CI/CD testing, and solving 150+ algorithmic problems. Seeking a <strong>Software Development Engineer (SDE) / Backend Developer</strong> role to architect robust, high-performance enterprise solutions.
         </div>
 
         <!-- TECHNICAL COMPETENCIES -->
@@ -367,7 +388,7 @@
         <!-- Project 1 -->
         <div class="project-card">
             <div class="project-headline">
-                <div class="project-name">Project Name: Intelligent Student Management & Academics Portal</div>
+                <div class="project-name">Intelligent Student Management & Academics Portal <a href="https://github.com/piyush1008-cyber/piyush1008-cyber-studentapp" target="_blank" class="project-live-link">GitHub ↗</a></div>
                 <div class="project-date">Jan 2026 — Present</div>
             </div>
             <div class="project-tech">Tech Stack: Node.js, PostgreSQL, Express.js, SQL, REST APIs, Postman</div>
@@ -382,7 +403,7 @@
         <!-- Project 2 -->
         <div class="project-card">
             <div class="project-headline">
-                <div class="project-name">Project Name: Jarvis AI — Multimodal Voice Assistant & Knowledge Retrieval</div>
+                <div class="project-name">Jarvis AI — Multimodal Voice Assistant & Knowledge Retrieval <a href="https://github.com/piyush1008-cyber/jarvis-voice-assistant" target="_blank" class="project-live-link">GitHub ↗</a></div>
                 <div class="project-date">Sep 2025 — Dec 2025</div>
             </div>
             <div class="project-tech">Tech Stack: Python, Local RAG, Sentence-Transformers, Vector Search, Ollama API, Multi-Threading</div>
@@ -396,7 +417,7 @@
         <!-- Project 3 -->
         <div class="project-card">
             <div class="project-headline">
-                <div class="project-name">Project Name: SmartCrop — Precision Farming & Predictive Analytics Pipeline</div>
+                <div class="project-name">SmartCrop — Precision Farming & Predictive Analytics Pipeline <a href="https://github.com/piyush1008-cyber/crop-recommendation" target="_blank" class="project-live-link">GitHub ↗</a></div>
                 <div class="project-date">Jun 2025 — Aug 2025</div>
             </div>
             <div class="project-tech">Tech Stack: Python, Scikit-learn, Pandas, NumPy, Streamlit, Data Validation</div>
@@ -410,7 +431,7 @@
         <!-- Project 4: CyberShield -->
         <div class="project-card">
             <div class="project-headline">
-                <div class="project-name">Project Name: CyberShield — AI Cyber Crime & Investigation Portal</div>
+                <div class="project-name">CyberShield — AI Cybercrime & Investigation Management Platform <a href="https://github.com/piyush1008-cyber/CyberShield" target="_blank" class="project-live-link">GitHub ↗</a> <a href="https://piyush1008-cyber.github.io/portfolio/" target="_blank" class="project-live-link">Live Demo ↗</a></div>
                 <div class="project-date">Jan 2026 — Jun 2026</div>
             </div>
             <div class="project-tech">Tech Stack: React 19, Node.js, Express.js, MongoDB, JWT, RBAC, Helmet, SHA-256 Hashing</div>
@@ -449,10 +470,11 @@
             <div class="section-title">CERTIFICATIONS & ACHIEVEMENTS</div>
         </div>
         <ul class="cert-list">
+            <li><strong>150+ Algorithmic Problems Solved (LeetCode Top 150)</strong> — Implemented in modern C++17 and Python 3.12 (DP, Graph Traversal, Trees, Sliding Window) with automated GitHub Actions CI regression suites.</li>
             <li><strong>SQL (Intermediate) Certified</strong> — HackerRank (Verified in Complex Joins, Subqueries, Aggregations, and Indexing).</li>
-            <li><strong>The Ultimate Job Ready Data Science Course</strong> — CodeWithHarry (Comprehensive Python, Pandas, EDA, and Machine Learning).</li>
             <li><strong>National Cadet Corps (NCC):</strong> Certified NCC Cadet; holder of prestigious <strong>NCC 'A', 'B', and 'C' Certificates</strong>; attended Indian Army Training Camp; Blood Donation volunteer.</li>
-            <li><strong>Smart India Hackathon (SIH):</strong> Active participant in SIH internal college selections and competitive hackathons.</li>
+            <li><strong>Open-Source Recognition — XERJ Corpus Hub:</strong> CyberShield architecture selected by the founder of XERJ (Austin, TX) as an official reference implementation for AI coding agents.</li>
+            <li><strong>The Ultimate Job Ready Data Science Course</strong> — CodeWithHarry (Comprehensive Python, Pandas, EDA, and Machine Learning).</li>
         </ul>
     </div>
 </body>
